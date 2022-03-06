@@ -15,6 +15,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntry {
-    UUID userId;
-    String userName;
+    UUID id;
+    String name;
 }

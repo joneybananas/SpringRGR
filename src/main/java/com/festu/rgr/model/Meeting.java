@@ -4,28 +4,24 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.UUID;
+import javax.persistence.*;
 //    List<LocalDateTime> availableTime;
 //    List<Vote> votes;
 
 @Entity
 @Getter
 @Setter
-//@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-//@FieldDefaults(level = AccessLevel.PRIVATE)
-public class Meeting {
-    @Id
-    @GeneratedValue
-    UUID id;
-
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Meeting extends BaseEntity {
     String title;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "authorId")),
+            @AttributeOverride(name = "name", column = @Column(name = "authorName"))
+    })
     UserEntry author;
 }

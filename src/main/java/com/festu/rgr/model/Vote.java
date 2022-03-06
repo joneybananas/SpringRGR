@@ -4,26 +4,23 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Vote {
-    @Id
-    @GeneratedValue
-    UUID id;
-
+public class Vote extends BaseEntity {
     LocalDateTime time;
+
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "authorId")),
+            @AttributeOverride(name = "name", column = @Column(name = "authorName"))
+    })
     UserEntry author;
 }
