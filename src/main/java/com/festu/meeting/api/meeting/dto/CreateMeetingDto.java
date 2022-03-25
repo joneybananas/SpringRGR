@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created on 3/24/2022
@@ -15,8 +15,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateMeetingDto {
+
     @NotBlank
     String title;
-    @NotNull
-    UUID authorId;
+
+    @NotBlank
+    List<LocalDateTime> availableTime;
+
 }

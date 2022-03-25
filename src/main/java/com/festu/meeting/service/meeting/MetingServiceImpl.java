@@ -28,6 +28,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MetingServiceImpl implements MeetingService {
 
+    private final static QMeeting meeting = QMeeting.meeting;
+
     MeetingRepository repository;
 
     @Override
@@ -41,6 +43,9 @@ public class MetingServiceImpl implements MeetingService {
     @Transactional
     public Meeting update(UUID id, UpdateMeetingArguments arguments) {
         Meeting meeting = getExisting(id);
+
+        meeting.setTitle(arguments.getTitle());
+        meeting.setAvailableTime(arguments.getAvailableTime());
 
         return meeting;
     }
@@ -73,12 +78,8 @@ public class MetingServiceImpl implements MeetingService {
     }
 
     private Predicate buildPredicate(SearchMeetingArguments arguments) {
-
-        QMeeting meeting = QMeeting.meeting;
-
-
         return WhereClauseBuilder.getNew()
-                                 .optionalAnd("title", meeting.title::containsIgnoreCase)
+                                 .optionalAnd(arguments.getTitle(), meeting.title::containsIgnoreCase)
                                  .build();
     }
 

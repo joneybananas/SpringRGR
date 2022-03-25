@@ -15,6 +15,11 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Vote extends BaseEntity {
+
+//    @OneToMany
+    @JoinColumn(nullable = false)
+    Meeting meeting;
+
     LocalDateTime time;
 
     @Embedded

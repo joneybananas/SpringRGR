@@ -1,5 +1,6 @@
 package com.festu.meeting.api.meeting.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
  */
 @Getter
 @Setter
+@Builder
 public class MeetingListDto {
 
     UUID id;

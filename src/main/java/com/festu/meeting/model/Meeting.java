@@ -27,11 +27,13 @@ public class Meeting extends BaseEntity {
     })
     UserEntry author;
 
+    @ElementCollection
     List<LocalDateTime> availableTime;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "meeting", cascade = CascadeType.REMOVE)
     List<Vote> votes;
 
-    public Integer getTotalVotes() {
+    public Integer getVotesAmount() {
         return votes.size();
     }
 

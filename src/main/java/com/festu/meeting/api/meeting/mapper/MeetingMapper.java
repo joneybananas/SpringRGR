@@ -8,8 +8,6 @@ import com.festu.meeting.service.meeting.arguments.UpdateMeetingArguments;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-
 /**
  * Created on 3/24/2022
  *
@@ -20,7 +18,7 @@ public interface MeetingMapper {
 
     MeetingDto toDto(Meeting meeting);
 
-    @Mapping(target = "totalVotes", source = "getTotalVotes")
+    @Mapping(target = "totalVotes", source = "votesAmount")
     MeetingListDto toListDto(Meeting meeting);
 
     CreateMeetingArguments toCreateArguments(CreateMeetingDto createMeetingDto);
