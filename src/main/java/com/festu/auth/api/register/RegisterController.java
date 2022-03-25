@@ -2,6 +2,7 @@ package com.festu.auth.api.register;
 
 import com.festu.auth.api.register.dto.RegisterUserDto;
 import com.festu.auth.api.register.mapper.RegisterMapper;
+import com.festu.auth.model.User;
 import com.festu.auth.service.register.RegisterService;
 import com.festu.auth.service.register.arguments.RegisterUserArguments;
 import com.festu.auth.service.token.AuthTokenService;
@@ -26,14 +27,17 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RegisterController {
 
-    RegisterService service;
+    RegisterService registerService;
     RegisterMapper mapper;
     AuthTokenService authTokenService;
 
     @PostMapping("register")
     public UUID register(@RequestBody RegisterUserDto registerUserDto) {
         RegisterUserArguments arguments = mapper.toRegisterArguments(registerUserDto);
-        return authTokenService.createToken(service.register(arguments)).getId();
+
+        User user = registerService.register(arguments);
+
+        return authTokenService.createToken(user).getId();
     }
 
 }

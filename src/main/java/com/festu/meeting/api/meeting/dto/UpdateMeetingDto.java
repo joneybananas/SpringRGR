@@ -1,7 +1,12 @@
 package com.festu.meeting.api.meeting.dto;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -9,9 +14,12 @@ import java.util.UUID;
  *
  * @author Fedor Ishchenko
  */
+@Getter
+@Setter
+@Builder
 public class UpdateMeetingDto {
     @NotBlank
     String title;
     @NotNull
-    UUID authorId;
+    List<String> availableTime;
 }

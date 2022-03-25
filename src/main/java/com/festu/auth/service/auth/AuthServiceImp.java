@@ -23,4 +23,9 @@ public class AuthServiceImp implements AuthService {
         this.loginUser = user;
     }
 
+    @Override
+    public void logout() {
+        loginUser = null;
+    }
+
 }

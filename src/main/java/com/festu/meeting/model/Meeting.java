@@ -34,6 +34,7 @@ public class Meeting extends BaseEntity {
     List<Vote> votes;
 
     public Integer getVotesAmount() {
+        if (votes == null) return 0;
         return votes.size();
     }
 

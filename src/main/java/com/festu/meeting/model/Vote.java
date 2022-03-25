@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Vote extends BaseEntity {
 
-//    @OneToMany
+    @OneToOne
     @JoinColumn(nullable = false)
     Meeting meeting;
 

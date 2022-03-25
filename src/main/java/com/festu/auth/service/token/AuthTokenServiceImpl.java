@@ -3,41 +3,47 @@ package com.festu.auth.service.token;
 import com.festu.auth.model.AuthToken;
 import com.festu.auth.model.User;
 import com.festu.auth.repository.AuthTokenRepository;
+import com.festu.auth.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthTokenServiceImpl implements AuthTokenService {
 
     private final AuthTokenRepository repository;
 
-    @Value("${auth.minutes_inactivity_timeout}")
-    private Integer MAX_USER_TOKEN_INACTIVITY_MIN;
+    private final AuthService authService;
+
+    //    @Value("${auth.minutes-inactivity-timeout}")
+    private String MAX_USER_TOKEN_INACTIVITY_MIN = "30";
 
     @Override
     public void update(AuthToken token) {
         token.setLastAccessTime(LocalDateTime.now());
         this.repository.save(token);
+        authService.loginUser(token.getUser());
     }
 
     @Override
     public void remove(AuthToken authToken) {
         this.repository.delete(authToken);
+        authService.logout();
     }
 
     @Override
     public boolean isAuthTokenExpired(AuthToken token) {
         final LocalDateTime now = LocalDateTime.now();
         final LocalDateTime lastAccessTime = token.getLastAccessTime();
-
-        return Math.abs(ChronoUnit.MINUTES.between(now, lastAccessTime)) > MAX_USER_TOKEN_INACTIVITY_MIN;
+        log.info(String.format("Validating is token %s expired of %s minutes", token.getId(), MAX_USER_TOKEN_INACTIVITY_MIN));
+        return Math.abs(ChronoUnit.MINUTES.between(now, lastAccessTime)) > Integer.parseInt(MAX_USER_TOKEN_INACTIVITY_MIN);
     }
 
     @Override
@@ -47,6 +53,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
                                    .build();
 
         this.repository.saveAndFlush(token);
+        authService.loginUser(token.getUser());
 
         return token;
     }
@@ -58,7 +65,9 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     @Override
     public void removeByUser(User user) {
+
         repository.removeByUser(user);
+        authService.logout();
     }
 
 }

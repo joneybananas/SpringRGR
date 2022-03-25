@@ -29,12 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().disable()
             .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/auth/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
             .userDetailsService(userService)
             .httpBasic()
-            .authenticationEntryPoint(new BasicAuthenticationEntryPoint())
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .authenticationEntryPoint(new BasicAuthenticationEntryPoint());
 
         final TokenBasicAuthenticationFilter basicAuthenticationFilter = new TokenBasicAuthenticationFilter(this.authenticationManagerBean(), this.authTokenService);
         final TokenAuthenticationFilter tokenFilter = new TokenAuthenticationFilter(this.authTokenService);

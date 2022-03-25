@@ -13,7 +13,7 @@ import org.mapstruct.Mapping;
  *
  * @author Fedor Ishchenko
  */
-@Mapper
+@Mapper(uses = {TimeMapper.class})
 public interface MeetingMapper {
 
     MeetingDto toDto(Meeting meeting);
@@ -21,6 +21,7 @@ public interface MeetingMapper {
     @Mapping(target = "totalVotes", source = "votesAmount")
     MeetingListDto toListDto(Meeting meeting);
 
+    @Mapping(target = "availableTime", qualifiedByName = "toLocalDateTime")
     CreateMeetingArguments toCreateArguments(CreateMeetingDto createMeetingDto);
 
     UpdateMeetingArguments toUpdateArguments(UpdateMeetingDto updateMeetingDto);

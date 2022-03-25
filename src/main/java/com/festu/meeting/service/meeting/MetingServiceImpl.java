@@ -36,6 +36,9 @@ public class MetingServiceImpl implements MeetingService {
     @Transactional
     public Meeting create(@NotNull CreateMeetingArguments arguments) {
         return repository.save(Meeting.builder()
+                                      .title(arguments.getTitle())
+                                      .availableTime(arguments.getAvailableTime())
+                                      .author(arguments.getAuthor())
                                       .build());
     }
 

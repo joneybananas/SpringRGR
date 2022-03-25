@@ -10,4 +10,5 @@ import com.festu.auth.model.User;
 public interface AuthService {
     User getLoginUser();
     void loginUser(User user);
+    void logout();
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -16,8 +17,8 @@ public class TokenAuthenticationFilter implements Filter {
 
     private final AuthTokenService authTokenService;
 
-    @Value("${auth.token_name}")
-    private String AUTH_TOKEN_NAME;
+//    @Value("${auth.token-name}")
+    private String AUTH_TOKEN_NAME = "Authorization";
 
     public TokenAuthenticationFilter(AuthTokenService authTokenService) {
         this.authTokenService = authTokenService;

@@ -50,7 +50,8 @@ public class MeetingController {
 
     @PostMapping("create")
     public MeetingDto create(@RequestBody @Valid CreateMeetingDto createMeetingDto) {
-        CreateMeetingArguments createMeetingArguments = createMeetingAction.execute(createMeetingDto);
+        CreateMeetingArguments createMeetingActionArguments = meetingMapper.toCreateArguments(createMeetingDto);
+        CreateMeetingArguments createMeetingArguments = createMeetingAction.execute(createMeetingActionArguments);
         Meeting meeting = metingService.create(createMeetingArguments);
         return meetingMapper.toDto(meeting);
     }

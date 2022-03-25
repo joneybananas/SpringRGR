@@ -3,7 +3,6 @@ package com.festu.auth.filters;
 import com.festu.auth.model.AuthToken;
 import com.festu.auth.model.User;
 import com.festu.auth.service.token.AuthTokenService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -18,8 +17,8 @@ public class TokenBasicAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final AuthTokenService authTokenService;
 
-    @Value("${auth.token_name}")
-    private String AUTH_TOKEN_NAME;
+//    @Value("${auth.token-name}")
+    private String AUTH_TOKEN_NAME = "Authorization";
 
     public TokenBasicAuthenticationFilter(AuthenticationManager authenticationManager, AuthTokenService authTokenService) {
         super(authenticationManager);
