@@ -3,8 +3,10 @@ package com.festu.auth.filters;
 import com.festu.auth.model.AuthToken;
 import com.festu.auth.model.User;
 import com.festu.auth.service.token.AuthTokenService;
+import com.festu.meeting.exceptions.AuthException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
@@ -17,7 +19,7 @@ public class TokenAuthenticationFilter implements Filter {
 
     private final AuthTokenService authTokenService;
 
-//    @Value("${auth.token-name}")
+    //    @Value("${auth.token-name}")
     private String AUTH_TOKEN_NAME = "Authorization";
 
     public TokenAuthenticationFilter(AuthTokenService authTokenService) {

@@ -29,4 +29,10 @@ public class RestExceptionHandler {
         return new Message(exception.getMessage() + "not found");
     }
 
+    @ExceptionHandler(AuthException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    Message unauthorizedHandler(AuthException exception) {
+        return new Message(exception.getMessage());
+    }
+
 }
