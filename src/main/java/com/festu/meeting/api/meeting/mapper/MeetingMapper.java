@@ -24,6 +24,7 @@ public interface MeetingMapper {
     @Mapping(target = "availableTime", qualifiedByName = "toLocalDateTime")
     CreateMeetingArguments toCreateArguments(CreateMeetingDto createMeetingDto);
 
+    @Mapping(target = "availableTime", qualifiedByName = "toLocalDateTime")
     UpdateMeetingArguments toUpdateArguments(UpdateMeetingDto updateMeetingDto);
 
     SearchMeetingArguments toSearchArguments(SearchMeetingDto dto);

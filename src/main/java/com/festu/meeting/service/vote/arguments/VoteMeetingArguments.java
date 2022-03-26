@@ -1,21 +1,21 @@
-package com.festu.meeting.api.meeting.dto;
+package com.festu.meeting.service.vote.arguments;
 
+import com.festu.meeting.model.Meeting;
 import com.festu.meeting.model.UserEntry;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 /**
- * Created on 3/24/2022
+ * Created on 3/26/2022
  *
  * @author Fedor Ishchenko
  */
 @Getter
 @Builder
-@Setter
-public class VoteDto {
+public class VoteMeetingArguments {
+    Meeting meeting;
+    UserEntry user;
     LocalDateTime time;
-    UserEntry author;
 }

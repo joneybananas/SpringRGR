@@ -1,5 +1,6 @@
 package com.festu.meeting.api.meeting.dto;
 
+import com.festu.meeting.api.vote.dto.VoteDto;
 import com.festu.meeting.model.UserEntry;
 import lombok.Builder;
 import lombok.Getter;

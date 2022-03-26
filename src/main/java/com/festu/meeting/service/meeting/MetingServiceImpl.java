@@ -3,10 +3,12 @@ package com.festu.meeting.service.meeting;
 import com.festu.meeting.exceptions.NotFoundException;
 import com.festu.meeting.model.Meeting;
 import com.festu.meeting.model.QMeeting;
+import com.festu.meeting.model.Vote;
 import com.festu.meeting.repository.MeetingRepository;
 import com.festu.meeting.service.meeting.arguments.CreateMeetingArguments;
 import com.festu.meeting.service.meeting.arguments.SearchMeetingArguments;
 import com.festu.meeting.service.meeting.arguments.UpdateMeetingArguments;
+import com.festu.meeting.service.vote.arguments.VoteMeetingArguments;
 import com.festu.meeting.utls.Lists;
 import com.festu.meeting.utls.WhereClauseBuilder;
 import com.querydsl.core.types.Predicate;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,7 +66,7 @@ public class MetingServiceImpl implements MeetingService {
     @Transactional(readOnly = true)
     public Meeting getExisting(@NotNull UUID id) {
         return repository.findById(id)
-                         .orElseThrow(NotFoundException::new);
+                         .orElseThrow(() -> new NotFoundException("Meeting"));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.festu.meeting.api.meeting;
 
 import com.festu.lib.dto.SimpleObjectValue;
 import com.festu.meeting.actions.CreateMeetingAction;
+import com.festu.meeting.actions.VoteMeetingAction;
 import com.festu.meeting.api.meeting.dto.*;
 import com.festu.meeting.api.meeting.mapper.MeetingMapper;
 import com.festu.meeting.model.Meeting;
@@ -14,7 +15,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -57,7 +57,7 @@ public class MeetingController {
     }
 
     @PostMapping("update/{id}")
-    public MeetingDto update(@PathVariable UUID id, @RequestBody UpdateMeetingDto updateMeetingDto) {
+    public MeetingDto update(@PathVariable UUID id, @Valid @RequestBody UpdateMeetingDto updateMeetingDto) {
         Meeting meeting = metingService.update(id, meetingMapper.toUpdateArguments(updateMeetingDto));
         return meetingMapper.toDto(meeting);
     }
@@ -65,11 +65,6 @@ public class MeetingController {
     @PostMapping("delete/{id}")
     public void delete(@PathVariable UUID id) {
         metingService.delete(id);
-    }
-
-    @PostMapping("vote/{id}")
-    public void vote(@PathVariable UUID id, @RequestBody SimpleObjectValue<LocalDateTime> dateTime) {
-
     }
 
 }
