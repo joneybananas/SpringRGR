@@ -1,27 +1,26 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class UserEntry {
+    UUID id
+    String name
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+entity Meeting {
+    UUID id
+    String title
+    UserEntry author
+    List<LocalDateTime> availableTime
+    List<Vote> votes
 }
+
+entity Vote {
+    UUID id
+    LocalDateTime time
+    UserEntry user
+}
+
+Meeting --> UserEntry
+Vote --> UserEntry
+Meeting --> Vote
 
 @enduml
