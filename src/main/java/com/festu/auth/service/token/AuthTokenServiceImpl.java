@@ -7,6 +7,8 @@ import com.festu.auth.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -48,6 +50,7 @@ public class AuthTokenServiceImpl implements AuthTokenService {
 
     @Override
     public AuthToken createToken(User loggedInUser) {
+        if(loggedInUser == null) throw new BadCredentialsException("Invalid username or password");
         AuthToken token = AuthToken.builder()
                                    .user(loggedInUser)
                                    .build();

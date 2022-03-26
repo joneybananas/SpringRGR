@@ -2,6 +2,7 @@ package com.festu.auth.api.auth.action;
 
 import com.festu.auth.model.User;
 import com.festu.auth.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,11 +11,10 @@ import org.springframework.stereotype.Component;
  * @author Fedor Ishchenko
  */
 @Component
+@RequiredArgsConstructor
 public class LoginAction {
 
-    UserService service;
-
-    UserService userService;
+    private final UserService service;
 
     public User execute(String username, String password) {
         User user = (User) service.loadUserByUsername(username);
