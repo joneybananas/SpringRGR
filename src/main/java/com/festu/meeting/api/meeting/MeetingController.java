@@ -56,13 +56,13 @@ public class MeetingController {
         return meetingMapper.toDto(meeting);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping("{id}/update")
     public MeetingDto update(@PathVariable UUID id, @Valid @RequestBody UpdateMeetingDto updateMeetingDto) {
         Meeting meeting = metingService.update(id, meetingMapper.toUpdateArguments(updateMeetingDto));
         return meetingMapper.toDto(meeting);
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("{id}/delete")
     public void delete(@PathVariable UUID id) {
         metingService.delete(id);
     }
