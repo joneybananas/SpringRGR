@@ -2,16 +2,13 @@ package com.festu.meeting.service.meeting;
 
 import com.festu.meeting.exceptions.NotFoundException;
 import com.festu.meeting.model.Meeting;
-import com.festu.meeting.model.QMeeting;
-import com.festu.meeting.model.Vote;
+
+
 import com.festu.meeting.repository.MeetingRepository;
 import com.festu.meeting.service.meeting.arguments.CreateMeetingArguments;
 import com.festu.meeting.service.meeting.arguments.SearchMeetingArguments;
 import com.festu.meeting.service.meeting.arguments.UpdateMeetingArguments;
-import com.festu.meeting.service.vote.arguments.VoteMeetingArguments;
 import com.festu.meeting.utls.Lists;
-import com.festu.meeting.utls.WhereClauseBuilder;
-import com.querydsl.core.types.Predicate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -21,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +27,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MetingServiceImpl implements MeetingService {
 
-    private final static QMeeting meeting = QMeeting.meeting;
 
     MeetingRepository repository;
 
@@ -72,21 +67,13 @@ public class MetingServiceImpl implements MeetingService {
     @Override
     @Transactional(readOnly = true)
     public List<Meeting> list(@NonNull SearchMeetingArguments arguments) {
-        Predicate predicate = buildPredicate(arguments);
-        return Lists.newList(repository.findAll(predicate));
+
+        return Lists.newList(repository.findAll());
     }
 
     @Override
-    @Transactional
     public void delete(UUID id) {
         Meeting meeting = getExisting(id);
         repository.delete(meeting);
     }
-
-    private Predicate buildPredicate(SearchMeetingArguments arguments) {
-        return WhereClauseBuilder.getNew()
-                                 .optionalAnd(arguments.getTitle(), meeting.title::containsIgnoreCase)
-                                 .build();
-    }
-
 }
